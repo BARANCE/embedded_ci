@@ -91,6 +91,7 @@ install: ${HEX_FILE}
 
 # Generate elf file
 ${ELF_FILE}: ${MAIN_SRCS}
+	mkdir -p ${MAIN_OUTPUT_DIR}
 	$(AVR_CC) -g -mmcu=${MCU_TYPE} ${MAIN_INCLUDE} ${MAIN_SRCS} -o ${ELF_FILE} ${MAIN_LIBRARY_DIR} ${MAIN_LIBRARY_FILES}
 
 # Generate hex file
@@ -107,6 +108,7 @@ debug: ${TEST_EXE_FILE}
 	${TEST_EXE_FILE}
 
 ${TEST_EXE_FILE}: ${TEST_SRCS}
+	mkdir -p ${TEST_OUTPUT_DIR}
 	g++ -g ${TEST_INCLUDE} ${TEST_SRCS} -o ${TEST_EXE_FILE} ${TEST_LIBRARY_DIR} ${TEST_LIBRARY_FILES}
 
 dclean:
