@@ -100,8 +100,8 @@ ${HEX_FILE}: ${ELF_FILE}
 
 # Delete all hex and elf files.
 clean:
-	$(RM) ${HEX_FILE}
-	$(RM) ${ELF_FILE}
+	-$(RM) ${HEX_FILE}
+	-$(RM) ${ELF_FILE}
 
 # For test
 debug: ${TEST_EXE_FILE}
@@ -112,4 +112,4 @@ ${TEST_EXE_FILE}: ${TEST_SRCS}
 	g++ -g ${TEST_INCLUDE} ${TEST_SRCS} -o ${TEST_EXE_FILE} ${TEST_LIBRARY_DIR} ${TEST_LIBRARY_FILES}
 
 dclean:
-	${RM} ${TEST_EXE_FILE}
+	-${RM} ${TEST_EXE_FILE}

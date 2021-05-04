@@ -1,0 +1,67 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell", // git bashで実行するためにシェルコマンドにする.
+			"label": "Arduino build", // タスクの識別名.
+			"command": "make", // makeコマンドを実行する.
+			"args": [ // コマンドの引数. ビルドなのでallを指定する.
+				"all"
+			],
+			"options": {
+				"cwd": "${workspaceRoot}", // プロジェクトの最上位ディレクトリでコマンドを実行する.
+			},
+			"problemMatcher": [],
+			"group": {
+				"kind": "build", // これがビルドタスクであることを示す. Ctrl+Shift+Bで起動できる.
+				"isDefault": true // ビルドタスクのうち, デフォルトのものであることを示す.
+			},
+			"detail": "Execute makefile on project-root for building.", // タスクの説明文.
+		},
+		{
+			"type": "shell",
+			"label": "Arduino build (Clean)",
+			"command": "make",
+			"args": [
+				"clean"
+			],
+			"options": {
+				"cwd": "${workspaceRoot}",
+			},
+			"problemMatcher": [],
+			"group": "none",
+			"detail": "Execute makefile on project-root for cleaning build files.",
+		},
+		{
+			"type": "shell",
+			"label": "Arduino test",
+			"command": "make",
+			"args": [
+				"debug"
+			],
+			"options": {
+				"cwd": "${workspaceRoot}",
+			},
+			"problemMatcher": [],
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			},
+			"detail": "Execute makefile on project-root for testing.",
+		},
+		{
+			"type": "shell",
+			"label": "Arduino test (Clean)",
+			"command": "make",
+			"args": [
+				"dclean"
+			],
+			"options": {
+				"cwd": "${workspaceRoot}",
+			},
+			"problemMatcher": [],
+			"group": "none",
+			"detail": "Execute makefile on project-root for cleaning test files.",
+		}
+	]
+}

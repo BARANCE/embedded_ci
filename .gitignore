@@ -1,2 +1,5 @@
-output/arduino.elf
-output/arduino.hex
+*.elf
+*.hex
+test.exe
+jenkins/work
+.vscode/c_cpp_properties.json
