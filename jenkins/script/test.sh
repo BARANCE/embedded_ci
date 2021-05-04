@@ -43,4 +43,3 @@ git checkout master
 
 # Build
 make debug
-make dclean
