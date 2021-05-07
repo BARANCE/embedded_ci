@@ -34,7 +34,7 @@ SRCS =\
 ${SRC_DIR}/led.c
 
 MAIN_SRCS = ${SRCS}\
-${SRC_DIR}/main.c
+${PROJECT_ROOT_DIR}/main.c
 
 TEST_MOCK_SRCS =\
 ${TEST_MOC_SRC_DIR}/io.c
@@ -42,7 +42,7 @@ ${TEST_MOC_SRC_DIR}/io.c
 TEST_SRCS = ${SRCS}\
 ${TEST_MOCK_SRCS}\
 ${TEST_SRC_DIR}/test_led.c\
-${TEST_SRC_DIR}/main.c
+${TEST_DIR}/main.c
 
 # Library files
 LIBRARY_DIR_FLAG = -L
