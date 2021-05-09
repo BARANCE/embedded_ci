@@ -37,7 +37,7 @@
 			"label": "Arduino test",
 			"command": "make",
 			"args": [
-				"debug"
+				"test"
 			],
 			"options": {
 				"cwd": "${workspaceRoot}",
@@ -48,20 +48,6 @@
 				"isDefault": true
 			},
 			"detail": "Execute makefile on project-root for testing.",
-		},
-		{
-			"type": "shell",
-			"label": "Arduino test (Clean)",
-			"command": "make",
-			"args": [
-				"dclean"
-			],
-			"options": {
-				"cwd": "${workspaceRoot}",
-			},
-			"problemMatcher": [],
-			"group": "none",
-			"detail": "Execute makefile on project-root for cleaning test files.",
 		}
 	]
 }

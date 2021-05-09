@@ -12,7 +12,7 @@ LIBRARY_FILES =
 
 # Source files
 SRCS =\
-${CURDIR}/src/led.C
+${CURDIR}/src/led.c
 
 # Output files
 OUTPUT_DIR = ${CURDIR}/lib
