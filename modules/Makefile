@@ -1,23 +1,34 @@
 # Project settings
 
-PROJECT_ROOT_DIR = ${CURDIR}/..
-MODULES_DIR = ${PROJECT_ROOT_DIR}/modules
+PROJECT_ROOT_DIR = $(CURDIR)/..
+MODULES_DIR = $(CURDIR)
 
 # Target module for compilation
 MODULES :=\
 Led\
 
 # Include directories (Additional)
-INCLUDES=
+INCLUDE_DIR =\
+$(addsuffix /include, $(addprefix $(MODULES_DIR)/, $(MODULES)))
+
+INCLUDES =\
+$(addprefix -I , $(INCLUDE_DIR))\
 
 # Library files (Additional)
-LIBRARIES =
+LIBRARY_DIR =\
+$(addsuffix /lib, $(addprefix $(MODULES_DIR)/, $(MODULES)))
 
-LIBRARY_FILES =
+LIBRARY_FILES = $(MODULES)
+
+LIBRARIES =\
+$(addprefix -L , $(LIBRARY_DIR))\
+$(addprefix -l, $(LIBRARY_FILES))\
 
 # Source files (main.c and additional)
-SRCS =\
-${MODULES_DIR}/main.c\
+SOURCE_DIR = $(MODULES_DIR)
+
+SOURCE_FILES =\
+$(wildcard $(SOURCE_DIR)/*.c)\
 
 # Output files
 OUTPUT_DIR = ${PROJECT_ROOT_DIR}/output
@@ -27,9 +38,10 @@ HEX_FILE = ${OUTPUT_DIR}/arduino.hex
 
 # ==== Tool settings ====
 # Settings - avr-gcc
-COMMAND_COMPILER = avr-gcc
+COMPILER = avr-gcc
 MCU_TYPE = atmega328p
 
+# Generate object files to archive library.
 COMPILER_FLAGS = -g -mmcu=${MCU_TYPE}
 
 # Settings - avr-objcopy
@@ -51,12 +63,12 @@ ${HEX_FILE}: ${ELF_FILE}
 
 # Generate elf file
 .PHONY: ${MODULES}
-${ELF_FILE}: ${SRCS} ${MODULES}
+${ELF_FILE}: ${SOURCE_FILES} ${MODULES}
 
 ${MODULES}:
-	${MAKE} --directory=$@
+	$(MAKE) --directory=$@
 	mkdir -p ${OUTPUT_DIR}
-	${COMMAND_COMPILER} ${COMPILER_FLAGS} -I ${MODULES_DIR}/${@}/include ${INCLUDES} ${SRCS} -o ${ELF_FILE} -L ${MODULES_DIR}/${@}/lib ${LIBRARIES} -l${@} ${LIBRARY_FILES}
+	$(COMPILER) $(COMPILER_FLAGS) ${INCLUDES} ${LIBRARIES} -o ${ELF_FILE} ${SOURCE_FILES}
 
 # Delete all hex and elf files.
 clean:
