@@ -27,13 +27,21 @@ MCU_TYPE = atmega328p
 # Generate object files to archive library.
 COMPILER_FLAGS = -g -mmcu=${MCU_TYPE} -c
 
+# Settings - avr-ar
+COMMAND_AR = avr-ar
+AR_FLAGS = r
+
 # ==== MAKE Targets ====
 
 # Generate all files, but not install
 all: ${LIB_FILE}
 
 ${LIB_FILE}: ${OBJ_FILE}
-	avr-ar r ${LIB_FILE} ${OBJ_FILE}
+	${COMMAND_AR} ${AR_FLAGS} ${LIB_FILE} ${OBJ_FILE}
 
 ${OBJ_FILE}: ${SRCS}
 	${COMMAND_COMPILER} ${COMPILER_FLAGS} ${INCLUDES} ${SRCS} -o ${OBJ_FILE} ${LIBRARIES} ${LIBRARY_FILES}
+
+clean:
+	-rm ${OBJ_FILE}
+	-rm ${LIB_FILE}
