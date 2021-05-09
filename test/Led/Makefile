@@ -51,7 +51,7 @@ TARGET = $(TARGET_DIR)/libTest${CURRENT_MODULE_NAME}.a
 # ==== Tool settings ====
 # Settings - g++
 COMPILER = g++
-COMPILER_FLAGS = -g -c -Wall -Wextra -Os
+COMPILER_FLAGS = -g -c
 
 # Settings - ar
 COMMAND_AR = ar
