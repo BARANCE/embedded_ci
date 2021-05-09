@@ -9,13 +9,14 @@ RM := rm
 # ==== Source/Destination files/directories ===
 
 # Global
-PROJECT_ROOT_DIR = .
+PROJECT_ROOT_DIR = ${CURDIR}
+MODULES_DIR = ${PROJECT_ROOT_DIR}/modules
 TEST_DIR = ${PROJECT_ROOT_DIR}/test
 
 # include files
 INCLUDE_FLAG = -I
-MAIN_INCLUDE_DIR = ${PROJECT_ROOT_DIR}/include
-TEST_INCLUDE_DIR = ${TEST_DIR}/include
+MAIN_INCLUDE_DIR = ${MODULES_DIR}/Led/include
+TEST_INCLUDE_DIR = ${TEST_DIR}/Led/include
 
 MAIN_INCLUDE =\
 ${INCLUDE_FLAG}${MAIN_INCLUDE_DIR}
@@ -26,22 +27,18 @@ ${INCLUDE_FLAG}"/c/Program Files (x86)/CppUTest/include"\
 ${INCLUDE_FLAG}${MAIN_INCLUDE_DIR}\
 
 # Source files
-SRC_DIR = ${PROJECT_ROOT_DIR}/src
-TEST_SRC_DIR = ${TEST_DIR}/src
-TEST_MOC_SRC_DIR = ${TEST_DIR}/mock_src
+SRC_DIR = ${MODULES_DIR}/Led/src
+TEST_SRC_DIR = ${TEST_DIR}/Led/src
 
 SRCS =\
 ${SRC_DIR}/led.c
 
 MAIN_SRCS = ${SRCS}\
-${PROJECT_ROOT_DIR}/main.c
-
-TEST_MOCK_SRCS =\
-${TEST_MOC_SRC_DIR}/io.c
+${MODULES_DIR}/main.c
 
 TEST_SRCS = ${SRCS}\
-${TEST_MOCK_SRCS}\
 ${TEST_SRC_DIR}/test_led.c\
+${TEST_SRC_DIR}/io.c\
 ${TEST_DIR}/main.c
 
 # Library files

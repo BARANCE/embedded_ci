@@ -1,11 +1,13 @@
 # Project settings
-TEST_DIR = .
-PROJECT_ROOT_DIR = ..
+PROJECT_ROOT_DIR = ${CURDIR}/..
+MODULES_DIR = ${PROJECT_ROOT_DIR}/modules
+TEST_DIR = ${PROJECT_ROOT_DIR}/test
+
 
 # Include directories
 INCLUDES =\
--I ${TEST_DIR}/include\
--I ${PROJECT_ROOT_DIR}/include\
+-I ${TEST_DIR}/Led/include\
+-I ${MODULES_DIR}/Led/include\
 -I "/c/Program Files (x86)/CppUTest/include"\
 
 # Library files
@@ -17,13 +19,10 @@ LIBRARY_FILES =\
 -lpthread\
 
 # Source files
-MAIN_SOURCE_DIR = ${PROJECT_ROOT_DIR}/src
-TEST_SOURCE_DIR = ${TEST_DIR}/src
-MOCK_SOURCE_DIR = ${TEST_DIR}/mock_src
-
-SRCS = ${MAIN_SOURCE_DIR}/*\
-${MOCK_SOURCE_DIR}/*\
-${TEST_SOURCE_DIR}/*\
+SRCS =\
+${MODULES_DIR}/Led/src/led.c\
+${TEST_DIR}/Led/src/test_led.c\
+${TEST_DIR}/Led/src/io.c\
 ${TEST_DIR}/main.c\
 
 # Output files
