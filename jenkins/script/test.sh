@@ -42,4 +42,4 @@ git pull
 git checkout master
 
 # Build
-make debug
+make test
