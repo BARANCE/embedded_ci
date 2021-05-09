@@ -52,10 +52,10 @@ ${HEX_FILE}: ${ELF_FILE}
 # Generate elf file
 .PHONY: ${MODULES}
 ${ELF_FILE}: ${SRCS} ${MODULES}
-	mkdir -p ${OUTPUT_DIR}
 
 ${MODULES}:
 	${MAKE} --directory=$@
+	mkdir -p ${OUTPUT_DIR}
 	${COMMAND_COMPILER} ${COMPILER_FLAGS} -I ${MODULES_DIR}/${@}/include ${INCLUDES} ${SRCS} -o ${ELF_FILE} -L ${MODULES_DIR}/${@}/lib ${LIBRARIES} -l${@} ${LIBRARY_FILES}
 
 # Delete all hex and elf files.
