@@ -1,27 +1,39 @@
+CURRENT_MODULE_NAME = $(shell basename `readlink -f $(CURDIR)`)
 
 MODULES_DIR = ..
+MODULE_DIR = ${MODULES_DIR}/${CURRENT_MODULE_NAME}
 
-# Include directories
+# Include file
+INCLUDE_DIR = ${MODULE_DIR}/include
+
 INCLUDES=\
--I ${CURDIR}/include\
+$(addprefix -I , $(INCLUDE_DIR))\
 
-# Library files
+# External libraries
+LIBRARY_DIR =
+LIBRARY_FILES =
 LIBRARIES =
 
-LIBRARY_FILES =
-
 # Source files
-SRCS =\
-${CURDIR}/src/led.c
+SOURCE_DIR = ${MODULE_DIR}/src
 
-# Output files
-OUTPUT_DIR = ${CURDIR}/lib
-OBJ_FILE = ${OUTPUT_DIR}/Led.o
-LIB_FILE = ${OUTPUT_DIR}/libLed.a
+SOURCE_FILES =\
+$(wildcard $(SOURCE_DIR)/*.c)\
+
+# Output object files
+OBJECT_DIR = ${MODULE_DIR}/obj
+OBJECT_FILES =\
+$(addprefix $(OBJECT_DIR)/, $(notdir $(SOURCE_FILES:.c=.o)))\
+
+DEPEND_FILES = $(OBJECT_FILES:.o=.d)
+
+# Output library files
+TARGET_DIR = $(MODULE_DIR)/lib
+TARGET = $(TARGET_DIR)/lib$(CURRENT_MODULE_NAME).a
 
 # ==== Tool settings ====
 # Settings - avr-gcc
-COMMAND_COMPILER = avr-gcc
+COMPILER = avr-gcc
 MCU_TYPE = atmega328p
 
 # Generate object files to archive library.
@@ -34,15 +46,17 @@ AR_FLAGS = r
 # ==== MAKE Targets ====
 
 # Generate all files, but not install
-all: ${LIB_FILE}
 
-${LIB_FILE}: ${OBJ_FILE}
-	${COMMAND_AR} ${AR_FLAGS} ${LIB_FILE} ${OBJ_FILE}
+$(TARGET): $(OBJECT_FILES)
+	@mkdir -p $(TARGET_DIR)
+	$(COMMAND_AR) $(AR_FLAGS) $(TARGET) $(OBJECT_FILES)
 
-${OBJ_FILE}: ${SRCS}
-	mkdir -p ${OUTPUT_DIR}
-	${COMMAND_COMPILER} ${COMPILER_FLAGS} ${INCLUDES} ${SRCS} -o ${OBJ_FILE} ${LIBRARIES} ${LIBRARY_FILES}
+$(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.c
+	@mkdir -p $(OBJECT_DIR)
+	$(COMPILER) $(COMPILER_FLAGS) $(INCLUDES) $(LIBRARIES) -o $@ -c $^
+
+all: $(TARGET)
 
 clean:
-	-rm ${OBJ_FILE}
-	-rm ${LIB_FILE}
+	-rm ${OBJECT_FILES}
+	-rm ${TARGET}
