@@ -53,7 +53,7 @@ $(TARGET): $(OBJECT_FILES)
 
 $(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.c
 	@mkdir -p $(OBJECT_DIR)
-	$(COMPILER) $(COMPILER_FLAGS) $(INCLUDES) $(LIBRARIES) -o $@ -c $^
+	$(COMPILER) $(COMPILER_FLAGS) $(INCLUDES) -o $@ -c $^ $(LIBRARIES)
 
 all: $(TARGET)
 

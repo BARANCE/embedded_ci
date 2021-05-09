@@ -68,7 +68,7 @@ ${ELF_FILE}: ${SOURCE_FILES} ${MODULES}
 ${MODULES}:
 	$(MAKE) --directory=$@
 	mkdir -p ${OUTPUT_DIR}
-	$(COMPILER) $(COMPILER_FLAGS) ${INCLUDES} ${LIBRARIES} -o ${ELF_FILE} ${SOURCE_FILES}
+	$(COMPILER) $(COMPILER_FLAGS) ${INCLUDES} -o ${ELF_FILE} ${SOURCE_FILES} ${LIBRARIES}
 
 # Delete all hex and elf files.
 clean:
