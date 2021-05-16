@@ -18,7 +18,6 @@ $(addprefix -I , $(INCLUDE_DIR))\
 
 # Library files
 LIBRARY_DIR =\
-$(addsuffix /lib, $(addprefix $(MODULES_DIR)/, $(MODULES)))\
 $(addsuffix /lib, $(addprefix $(TEST_DIR)/, $(MODULES)))\
 
 LIBRARY_FILES =\
@@ -45,7 +44,7 @@ EXE_FILE = ${OUTPUT_DIR}/test.exe
 # ==== Tool settings ====
 # Settings - g++
 COMPILER = g++
-COMPILER_FLAGS = -g -c
+COMPILER_FLAGS = -g
 
 # ==== Make Targets ====
 
