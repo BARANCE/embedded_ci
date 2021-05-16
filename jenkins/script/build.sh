@@ -1,4 +1,4 @@
-PROJECT_DIR_NAME=project_sensor
+PROJECT_DIR_NAME=embedded_ci
 PROJECT_DIR=
 
 function get_project_dir() {
