@@ -123,12 +123,55 @@ GitHub上のファイルには含まれていません。
 # Installation
 
 準備中。
-ブログにて記事を掲載する予定。
 
 # Usage
 
-準備中。
-ブログにて記事を掲載する予定。
+## シェルからの実行
+
+コマンドはembedded_ciディレクトリ直下で実行します。
+```
+$ cd embedded_ci
+```
+
+- ビルド
+```
+$ make
+```
+- テスト
+```
+$ make test
+```
+- Arduinoへのプロダクトコードの転送。ビルドされていない場合は、先にビルドが実行されます。
+```
+$ make install
+```
+- 一時ファイルの削除
+```
+$ make clean
+```
+
+## VSCodeからの実行
+
+- ビルド : Ctrl + Shift + B
+- テスト :
+    1. Ctrl + Shift + P
+    2. リストから"Tasks: Run Test Task"を選択する。
+- それ以外 :
+    1. Ctrl + Shift + P
+    2. リストから"Tasks: Run Task"を選択する。
+    3. リストから実行したいタスク(cleanなど)を選択する。
+
+## Jenkinsからの実行
+
+1. JenkinsのシェルをGit Bashに変更します。
+2. Jenkins上にジョブを作成します。
+3. ジョブから`jenkins/script`ディレクトリ内のスクリプトファイルを呼び出すように設定します。ジョブはbuild, install, testと、これら全てを実行するパイプラインジョブをそれぞれ作成します。
+4. 実行したいジョブを選択して実行します。
+
+## 自動化
+
+1. Git Hooksの設定を変更し、コミット時にJenkinsのジョブを呼び出すようにします。
+2. JenkinsにSlack notification pluginをインストールします。
 
 # Note
 
