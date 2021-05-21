@@ -40,10 +40,10 @@ CIツールはOSSのJenkinsを使用しています。
 
 # Requirement
 
-* OS
+* Platform
     * [Arduino UNO](https://www.arduino.cc/) ... 開発マシン。プロダクトコードをこの上で動作させる。
     * Windows 10 ... ビルドマシン。プロダクトコードのコンパイル・転送と、単体テストを実行する。
-* CI Platform
+* CI tools
     * [Jenkins](https://www.jenkins.io/) ... CIツール。ビルド・単体テストなどの各フェーズをジョブとして表現する。
         * Slack notification plugin ... JenkinsからSlackにジョブの失敗を通知する。
     * [Git 2.27.0.windows.1](https://git-scm.com/) ... コミットフックの土台として利用。
