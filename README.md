@@ -46,12 +46,12 @@ CIツールはOSSのJenkinsを使用しています。
 * Build tools
     * [GNU make 3.81](http://gnuwin32.sourceforge.net/packages/make.htm) ... ビルド・テストを自動化。
     * [Arduino IDE](https://www.arduino.cc/en/software)
-        * avr-gcc ... AVRマイコン用のCコンパイラ。Arduino IDEに付属。
+        * avr-gcc ... AVRマイコン用のCクロスコンパイラ。Arduino IDEに付属。
         * avr-ar ... スタティックライブラリを生成するために利用。Arduino IDEに付属。
         * avr-objcopy ... ELFファイルからHEXファイルに変換する.Arduino IDEに付属。
         * avrdude ... HEXファイルをArduinoに転送する。Arduino IDEに付属。
     * [MinGW](http://mingw-w64.org/doku.php) ... Windows用のC言語/C++言語コンパイラ.
-        * g++ 8.1.0
+        * g++ 8.1.0 ... Windows上でArduino用コードの単体テストを実行するために利用。
 * Test tools
     * [CppUTest 3.8](http://cpputest.github.io/) ... C言語/C++言語用テストフレームワーク。カバレッジ測定もできる。
     * [bc 1.06](http://gnuwin32.sourceforge.net/packages/bc.htm) ... カバレッジ測定結果を抽出する動作の一部に利用。
