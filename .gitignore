@@ -11,3 +11,4 @@ make_test
 *.gcno
 *.gcov
 *.gresult
+*.exe
