@@ -11,11 +11,11 @@ https://iot-entrance.blog.jp/archives/8718967.html
 実装しているのは主にmakefileとJenkinsスクリプトになります。
 
 CIツールはOSSのJenkinsを使用しています。
-スクリプトはファイル化しているので、Jenkins UI上のスクリプト欄はこれらのファイルを呼び出す動作のみを行っています。
+ジョブはスクリプトファイル化しているので、Jenkins UI上ではこれらのファイルを呼び出す動作のみを行います。
 
-# DEMO
+# FLOW
 
-"hoge"の魅力が直感的に伝えわるデモ動画や図解を載せる
+![Flow](doc/flow.png)
 
 # Features
 
@@ -34,46 +34,46 @@ CIツールはOSSのJenkinsを使用しています。
 
 # Requirement
 
-"hoge"を動かすのに必要なライブラリなどを列挙する
-
-* huga 3.5.2
-* hogehuga 1.0.2
+* Platform
+    * Windows 10
+* Tool
+    * Git 2.27.0.windows.1 ... コミットフックの土台として利用。
+        * Git Bash 4.4.23 ... Windows上でシェルスクリプトを動作させる土台として使用。
+    * GNU make 3.81 ... ビルド・テストを自動化。
+    * bc 1.06 ... カバレッジ測定結果を抽出する動作の一部に利用。
+    * CppUTest 3.8 ... C言語/C++言語用テストフレームワーク。
+    * Jenkins ... CIツール。
+        * Slack notification plugin ... JenkinsからSlackにジョブの失敗を通知する。
+    * Arduino IDE
+        * avr-gcc ... AVRマイコン用のCコンパイラ。Arduino IDEに付属。
+        * avr-ar ... スタティックライブラリを生成するために利用。Arduino IDEに付属。
+        * avr-objcopy ... ELFファイルからHEXファイルに変換する.Arduino IDEに付属。
+        * avrdude ... HEXファイルをArduinoに転送する。Arduino IDEに付属。
+    * MinGW ... Windows用のC言語/C++言語コンパイラ.
+        * g++ 8.1.0
+    * Slack
 
 # Installation
 
-Requirementで列挙したライブラリなどのインストール方法を説明する
-
-```bash
-pip install huga_package
-```
+準備中。
+ブログにて記事を掲載する予定。
 
 # Usage
 
-DEMOの実行方法など、"hoge"の基本的な使い方を説明する
-
-```bash
-git clone https://github.com/hoge/~
-cd examples
-python demo.py
-```
+準備中。
+ブログにて記事を掲載する予定。
 
 # Note
 
-注意点などがあれば書く
+Windows上でCUIベースビルドを実現するためには色々と準備が必要なのでやや敷居が高いかもしれません。
 
 # Author
 
-作成情報を列挙する
+不明点は下記までどうぞ。
 
-* 作成者
-* 所属
-* E-mail
+* 作成者 : BARANCE
+* Twitter : https://twitter.com/BARANCE_TW
 
 # License
-ライセンスを明示する
 
-"hoge" is under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
-
-社内向けなら社外秘であることを明示してる
-
-"hoge" is Confidential.
+[MIT license](https://en.wikipedia.org/wiki/MIT_License).
