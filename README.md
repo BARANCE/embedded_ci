@@ -35,23 +35,24 @@ CIツールはOSSのJenkinsを使用しています。
 # Requirement
 
 * Platform
-    * Windows 10
+    * [Arduino UNO](https://www.arduino.cc/) ... 開発マシン
+    * Windows 10 ... ビルドマシン
 * Tool
-    * Git 2.27.0.windows.1 ... コミットフックの土台として利用。
+    * [Git 2.27.0.windows.1](https://git-scm.com/) ... コミットフックの土台として利用。
         * Git Bash 4.4.23 ... Windows上でシェルスクリプトを動作させる土台として使用。
-    * GNU make 3.81 ... ビルド・テストを自動化。
-    * bc 1.06 ... カバレッジ測定結果を抽出する動作の一部に利用。
-    * CppUTest 3.8 ... C言語/C++言語用テストフレームワーク。
-    * Jenkins ... CIツール。
+    * [GNU make 3.81](http://gnuwin32.sourceforge.net/packages/make.htm) ... ビルド・テストを自動化。
+    * [bc 1.06](http://gnuwin32.sourceforge.net/packages/bc.htm) ... カバレッジ測定結果を抽出する動作の一部に利用。
+    * [CppUTest 3.8](http://cpputest.github.io/) ... C言語/C++言語用テストフレームワーク。
+    * [Jenkins](https://www.jenkins.io/) ... CIツール。
         * Slack notification plugin ... JenkinsからSlackにジョブの失敗を通知する。
-    * Arduino IDE
+    * [Arduino IDE](https://www.arduino.cc/en/software)
         * avr-gcc ... AVRマイコン用のCコンパイラ。Arduino IDEに付属。
         * avr-ar ... スタティックライブラリを生成するために利用。Arduino IDEに付属。
         * avr-objcopy ... ELFファイルからHEXファイルに変換する.Arduino IDEに付属。
         * avrdude ... HEXファイルをArduinoに転送する。Arduino IDEに付属。
-    * MinGW ... Windows用のC言語/C++言語コンパイラ.
+    * [MinGW](http://mingw-w64.org/doku.php) ... Windows用のC言語/C++言語コンパイラ.
         * g++ 8.1.0
-    * Slack
+    * [Slack](https://slack.com/intl/ja-jp/) ... ジョブ失敗をここに通知
 
 # Installation
 
