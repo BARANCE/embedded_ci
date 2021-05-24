@@ -13,11 +13,7 @@ https://iot-entrance.blog.jp/archives/8718967.html
 CIツールはOSSのJenkinsを使用しています。
 ジョブはスクリプトファイル化しているので、Jenkins UI上ではこれらのファイルを呼び出す動作のみを行います。
 
-# Flow
-
-![Flow](doc/flow.png)
-
-## 実行例
+# Example
 
 1. 動かないソースを記述します。
 ```c:modules/main.c
@@ -37,17 +33,21 @@ git commit -am "Probably works"
 
 ![Notification](doc/slack05.png)
 
+## 動作フロー
+
+![Flow](doc/flow.png)
+
 # Features
 
 このCIシステムでは下記が行えます。
 
 * コミットトリガによるJenkinsジョブの起動。
-* Jenkinsジョブによる下記の各処理の実行
+* Jenkinsによる下記の各処理(ジョブ)の実行
     * ビルド
     * 単体テスト
     * カバレッジ測定
     * 開発マシンへのインストール
-* ジョブ失敗時、slackにて開発者へリアルタイムにフィードバック。
+* ジョブ失敗時、slack経由で開発者へリアルタイムにフィードバック。
 
 # Keywords
 
@@ -337,6 +337,18 @@ curl --user "<User name>:<Jenkins API Token>" http://<Server address>:<Port>/job
 ![slack_ws01](doc/slack_ws01.png)
 
 なお、既存のワークスペースにあるチャンネルを投稿先とすることもできます。その場合は、該当するワークスペースにログインした状態にしてください。
+
+### Slackの通知を有効化
+
+例としてブラウザ版のslack設定を示します。デスクトップアプリ・モバイルアプリの場合は設定方法が異なりますので、slackのヘルプを参照してください。
+
+1. 右上のユーザーアイコンをクリックし、「環境設定」を選びます。
+
+![user settings](doc/slack06.png)
+
+2. 「通知」タブの「通知のタイミング」→「すべての新規メッセージ」を選びます。
+
+![notification timming](doc/slack07.png)
 
 ### Slack notification pluginのインストール
 
