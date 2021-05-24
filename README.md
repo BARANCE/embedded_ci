@@ -13,6 +13,42 @@ https://iot-entrance.blog.jp/archives/8718967.html
 CIツールはOSSのJenkinsを使用しています。
 ジョブはスクリプトファイル化しているので、Jenkins UI上ではこれらのファイルを呼び出す動作のみを行います。
 
+# Flow
+
+![Flow](doc/flow.png)
+
+## 実行例
+
+1. 動かないソースを記述します。
+```c:modules/main.c
+#include <avr/io.h>
+#include "led.h"
+
+int main() {
+    a = 1; // <-- Type is not specified!!
+    return 0;
+}
+```
+2. 該当するコードをGitにコミットします。
+```shell
+git commit -am "Probably works"
+```
+3. 数秒後デスクトップに通知が届きます。
+
+![Notification](doc/slack05.png)
+
+# Features
+
+このCIシステムでは下記が行えます。
+
+* コミットトリガによるJenkinsジョブの起動。
+* Jenkinsジョブによる下記の各処理の実行
+    * ビルド
+    * 単体テスト
+    * カバレッジ測定
+    * 開発マシンへのインストール
+* ジョブ失敗時、slackにて開発者へリアルタイムにフィードバック。
+
 # Keywords
 
 この資料で利用する用語を説明します。
@@ -28,22 +64,6 @@ CIツールはOSSのJenkinsを使用しています。
 * テストフレームワーク ... 自動化可能なテストを簡単に記述するための様々な機能を持ったライブラリのことです。複数のテストの結果を集計する機能の他、戻り値が特定の値になっていない場合にテストを失敗させたり、特定の関数をテスト用の関数に入れ替えるというような機能(mock機能)などを持ちます。今回はC言語・C++言語の開発において一般的に使用されているCppUTestを利用します。
 * カバレッジ ... テストの網羅率です。一般的には様々な定義がありますが、今回はプロダクトコード上の全ての行を1回以上実行した場合にカバレッジが100%となるルールを使用します。ちなみに、これは条件網羅でも分岐網羅でも条件分岐網羅でもありません。
 * make ... makeはソフトウェアのビルドを効果的にビルドするために考案されたソフトウェアです。Makefileというファイルに成果物を構築するためのルールを記述し、makeプログラムがそれをパースすることで、実行ファイルやイメージを構築することができます。
-
-# FLOW
-
-![Flow](doc/flow.png)
-
-# Features
-
-このCIシステムでは下記が行えます。
-
-* コミットトリガによるJenkinsジョブの起動。
-* Jenkinsジョブによる下記の各処理の実行
-    * ビルド
-    * 単体テスト
-    * カバレッジ測定
-    * 開発マシンへのインストール
-* ジョブ失敗時、slackにて開発者へリアルタイムにフィードバック。
 
 ## ディレクトリ構成
 
@@ -162,26 +182,26 @@ Requirementの各プログラムを順にインストールしていけばよい
 コマンドプロンプト・PowerShell・Cygwinなどとはディレクトリの表現やCドライブのパスが異なるため注意してください。
 
 コマンドはembedded_ciディレクトリ直下で実行します。
-```
+```shell
 $ cd embedded_ci
 ```
 
 - ビルド
 
 makeコマンドを実行するのみです。ビルドを行うだけでは開発マシンにイメージは転送されません。また、テストコードのビルドも行われません。
-```
+```shell
 $ make
 ```
 - テスト
 
 `make test`によりテストコードのビルド・テストの実行・カバレッジの測定が行われます。カバレッジ測定では、各モジュールのMakefile内に記載された`COVERAGE_TARGET_RATE`以下の網羅率になるとテストが失敗します。
-```
+```shell
 $ make test
 ```
 - イメージの転送
 
 イメージをArduinoに転送します。Arduinoをビルドマシンに接続している必要があります。接続されていない場合はmakeが失敗します。また、このコマンド実行時にまだプロダクトコードのビルドが行われていない場合、先にビルドが実行されます。
-```
+```shell
 $ make install
 ```
 - 一時ファイルの削除
@@ -192,7 +212,7 @@ $ make install
 3. カバレッジ測定用の一時ファイル(`.gcno`・`.gcna`・`.gcov`・`.gresult`)
 4. Arduinoへの転送用のイメージ(`.hex`・`.elf`)
 5. テスト用の実行ファイル(`.exe`)
-```
+```shell
 $ make clean
 ```
 
@@ -305,7 +325,7 @@ Windows上でのVSCodeのシェルはデフォルトではPowerShellになって
     - `<Jenkins API Token>`には、`<User name>`に対応するユーザーのAPI tokenの値を指定します。API tokenの作成方法は前述の通りです。
     - `<Job name>`には、コミット時に実行したいジョブの名前を指定します。今回の場合は、一括実行ジョブを指定します。例として、命名例通りにジョブの名前を付与していた場合は、`arduino_all`を指定します。
     - `<Job Access Token>`には、`<Job name>`で指定したジョブのJob access tokenの値を指定します。(ユーザー毎のAPI tokenとは異なります！)Access tokenの作成方法は前述の通りです。
-```
+```shell:.git/hooks/pre-commit
 #!/bin/sh
 curl --user "<User name>:<Jenkins API Token>" http://<Server address>:<Port>/job/<Job name>/build?token=<Job Access Token>
 ```
@@ -313,6 +333,7 @@ curl --user "<User name>:<Jenkins API Token>" http://<Server address>:<Port>/job
 ### Slack workspaceの開設
 
 ビルド失敗投稿用にSlackのworkspaceを開設する必要があります。ワークスペース名のプルダウンメニューを開き、「ワークスペースの追加」→「ワークスペースを新規作成」を選択して、ビルド結果通知用のワークスペースを作成してください。
+
 ![slack_ws01](doc/slack_ws01.png)
 
 なお、既存のワークスペースにあるチャンネルを投稿先とすることもできます。その場合は、該当するワークスペースにログインした状態にしてください。
