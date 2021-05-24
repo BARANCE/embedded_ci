@@ -2,4 +2,4 @@
 
 # Compiler
 COMPILER = g++
-COMPILER_FLAGS = -g -Wall -Wextra -fprofile-arcs -ftest-coverage
+COMPILER_FLAGS = -g -Wall -Wextra -fprofile-arcs -ftest-coverage -O0
