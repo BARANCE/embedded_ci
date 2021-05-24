@@ -2,6 +2,6 @@
 #include "led.h"
 
 int main() {
-    led();
+    a = 1; // <-- Type is not specified!!
     return 0;
 }
